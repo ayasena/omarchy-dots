@@ -1,0 +1,15 @@
+# Machine-level shell overrides: layered over whatever theme is active,
+# survives theme switches, and applies live on save (no shell restart).
+# Keys that aren't set here fall back to the theme's shell.toml or the defaults.
+
+[bar]
+# Visible thickness of a top/bottom bar. On this MacBook's built-in display
+# the camera notch keeps it at >= 32; below that a sliver of screen shows
+# beside the camera. Scales with the text size (omarchy display text size).
+size-horizontal = 36
+
+# Thickness for a bar moved to the left/right edge (default 28).
+# size-vertical = 28
+
+# Pin the bar's size so it stops scaling with the text size:
+#6 scale-with-font = false

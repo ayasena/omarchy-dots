@@ -1,0 +1,13 @@
+# Hyprland auto-backups from manual edits
+**/*.bak.*
+
+# Local / runtime state
+**/*.lock
+**/.cache/
+
+# Secrets (never track)
+**/.env
+**/.env.*
+**/credentials*
+**/*token*
+**/*secret*

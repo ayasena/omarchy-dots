@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Sync Omarchy + Hyprland customizations from $HOME into this repo, then show git status.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DEST="$ROOT/home"
+HOME_DIR="${HOME:?}"
+
+mkdir -p "${DEST}/.config/hypr"
+
+rsync -a --delete \
+  --exclude='*.bak.*' \
+  "${HOME_DIR}/.config/hypr/" "${DEST}/.config/hypr/"
+
+mkdir -p "${DEST}/.config/omarchy"
+for sub in shell.json shell.toml; do
+  [[ -f "${HOME_DIR}/.config/omarchy/${sub}" ]] &&
+    cp -a "${HOME_DIR}/.config/omarchy/${sub}" "${DEST}/.config/omarchy/"
+done
+for sub in extensions hooks plugins branding defaults; do
+  if [[ -d "${HOME_DIR}/.config/omarchy/${sub}" ]]; then
+    mkdir -p "${DEST}/.config/omarchy/${sub}"
+    rsync -a \
+      --exclude='*.sample' \
+      "${HOME_DIR}/.config/omarchy/${sub}/" "${DEST}/.config/omarchy/${sub}/"
+  fi
+done
+
+if [[ -d "${HOME_DIR}/.config/uwsm/env.d" ]]; then
+  mkdir -p "${DEST}/.config/uwsm"
+  rsync -a "${HOME_DIR}/.config/uwsm/env.d/" "${DEST}/.config/uwsm/env.d/"
+fi
+
+for f in .XCompose .bashrc; do
+  if [[ -f "${HOME_DIR}/${f}" ]]; then
+    cp -a "${HOME_DIR}/${f}" "${DEST}/${f}"
+  fi
+done
+
+mkdir -p "${ROOT}/manifest"
+pacman -Qeq >"${ROOT}/manifest/pacman-explicit.txt"
+command -v yay >/dev/null 2>&1 && yay -Qmq >"${ROOT}/manifest/aur-explicit.txt" 2>/dev/null || true
+
+cd "${ROOT}"
+git add -A
+echo "Saved into ${ROOT}. Review with: git status"
+git status

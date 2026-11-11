@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Copy tracked dotfiles from this repo back into $HOME (restore / second machine).
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SRC="$ROOT/home"
+HOME_DIR="${HOME:?}"
+
+if [[ ! -d "${SRC}/.config/hypr" ]]; then
+  echo "No ${SRC}/.config/hypr — run dotfiles-save first." >&2
+  exit 1
+fi
+
+rsync -a "${SRC}/.config/hypr/" "${HOME_DIR}/.config/hypr/"
+
+if [[ -d "${SRC}/.config/omarchy" ]]; then
+  mkdir -p "${HOME_DIR}/.config/omarchy"
+  rsync -a "${SRC}/.config/omarchy/" "${HOME_DIR}/.config/omarchy/"
+fi
+
+if [[ -d "${SRC}/.config/uwsm/env.d" ]]; then
+  mkdir -p "${HOME_DIR}/.config/uwsm"
+  rsync -a "${SRC}/.config/uwsm/env.d/" "${HOME_DIR}/.config/uwsm/env.d/"
+fi
+
+for f in .XCompose .bashrc; do
+  if [[ -f "${SRC}/${f}" ]]; then
+    cp -a "${SRC}/${f}" "${HOME_DIR}/${f}"
+  fi
+done
+
+if command -v hyprctl >/dev/null 2>&1; then
+  hyprctl reload
+  hyprctl configerrors
+fi
+
+if command -v omarchy >/dev/null 2>&1; then
+  omarchy restart shell 2>/dev/null || true
+fi
+
+echo "Applied dotfiles from ${ROOT}."
