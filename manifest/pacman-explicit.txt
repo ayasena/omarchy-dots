@@ -21,6 +21,7 @@ bolt
 brightnessctl
 btop
 btrfs-progs
+chiaki-ng
 chromium
 cliamp
 cups
