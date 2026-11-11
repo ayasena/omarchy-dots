@@ -25,3 +25,8 @@
 -- Logitech MX Keys examples:
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, { panel = "omarchy.emojis" })
+
+-- Remove Google app keybinds (were Omarchy defaults).
+hl.unbind("SUPER + SHIFT + CTRL + G")  -- Google Messages
+hl.unbind("SUPER + SHIFT + P")         -- Google Photos
+hl.unbind("SUPER + SHIFT + S")         -- Google Maps
