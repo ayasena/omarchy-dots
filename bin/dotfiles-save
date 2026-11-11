@@ -20,7 +20,9 @@ done
 for sub in extensions hooks plugins branding defaults; do
   if [[ -d "${HOME_DIR}/.config/omarchy/${sub}" ]]; then
     mkdir -p "${DEST}/.config/omarchy/${sub}"
-    rsync -a \
+    extra=()
+    [[ "${sub}" == "plugins" ]] && extra=(-L)
+    rsync -a "${extra[@]}" \
       --exclude='*.sample' \
       "${HOME_DIR}/.config/omarchy/${sub}/" "${DEST}/.config/omarchy/${sub}/"
   fi

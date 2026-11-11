@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "superwhisper.panel",
+  "name": "Superwhisper",
+  "version": "1.0.0",
+  "author": "Superwhisper",
+  "license": "MIT",
+  "description": "Superwhisper status, processing mode, the last dictation and quick access to history in the Omarchy bar.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Superwhisper",
+    "description": "Live dictation status, the last dictation with its stats, and quick access to history and settings.",
+    "category": "Status",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "iconSize": 20
+    },
+    "schema": [
+      {
+        "key": "iconSize",
+        "type": "integer",
+        "label": "Icon size",
+        "min": 8,
+        "max": 24,
+        "step": 1,
+        "defaultValue": 20
+      }
+    ]
+  }
+}
