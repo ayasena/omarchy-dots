@@ -30,3 +30,9 @@
 hl.unbind("SUPER + SHIFT + CTRL + G")  -- Google Messages
 hl.unbind("SUPER + SHIFT + P")         -- Google Photos
 hl.unbind("SUPER + SHIFT + S")         -- Google Maps
+
+-- Brightness on the monitor under the cursor (works for the MacBook panel).
+o.bind("XF86MonBrightnessUp", "Brightness up", "omarchy brightness display +5%")
+o.bind("XF86MonBrightnessDown", "Brightness down", "omarchy brightness display -5%")
+o.bind("SUPER + F9", "Brightness up", "omarchy brightness display +5%")
+o.bind("SUPER + F8", "Brightness down", "omarchy brightness display -5%")

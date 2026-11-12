@@ -4,8 +4,9 @@
 -- Monitor scale is Hyprland's scale for the output. It sizes everything
 -- Wayland-native, accepts fractions (1.6, 1.75), and applies immediately.
 -- "auto" lets Hyprland pick per display.
-local omarchy_monitor_scale = "auto"
-hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
+-- Rotated LG SDQHD first (top), then MacBook display below it.
+hl.monitor({ output = "HDMI-A-1", mode = "2560x2880@59.967", position = "0x0", scale = 1.25, transform = 3 })
+hl.monitor({ output = "eDP-1", mode = "3456x2234@120", position = "0x2048", scale = 2 })
 
 -- Configure a specific monitor.
 -- hl.monitor({ output = "DP-2", mode = "2560x1440@144", position = "0x0", scale = 1 })
