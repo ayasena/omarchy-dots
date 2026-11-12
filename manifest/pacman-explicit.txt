@@ -59,6 +59,7 @@ foot
 fzf
 git
 gliff
+glow
 gnome-disk-utility
 gnome-keyring
 gnome-themes-extra
@@ -134,6 +135,7 @@ omawrite
 owe
 pacman-contrib
 pamixer
+pass
 pinta
 plocate
 postgresql-libs

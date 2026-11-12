@@ -5,6 +5,7 @@
 hl.config({
   input = {
     touchpad = {
+      scroll_factor = 0.2,
       natural_scroll = true,
     },
   },
@@ -69,12 +70,17 @@ hl.config({
     workspace_swipe_invert = true,
     workspace_swipe_direction_lock = true,
     workspace_swipe_cancel_ratio = 0.35,
-    -- No new workspace at the edge — rubber-band instead (like macOS).
-    workspace_swipe_create_new = false,
+    -- Allow swiping onto an empty desktop (Hyprland otherwise has no neighbor to animate to).
+    workspace_swipe_create_new = true,
     workspace_swipe_distance = 280,
     workspace_swipe_min_speed_to_force = 45,
   },
 })
+
+-- Keep desktops 2–10 around even with no windows — like macOS Spaces you've already created.
+for slot = 2, 10 do
+  hl.workspace_rule({ workspace = tostring(slot), persistent = true })
+end
 
 -- Enable touchpad gestures for moving focus (helpful on scrolling layout).
 -- hl.gesture({ fingers = 3, direction = "left", action = function() hl.dispatch(hl.dsp.focus({ direction = "l" })) end })
